@@ -2,9 +2,10 @@ exports.config = {
     
     //
     // ==================
-    // Specify Test Files
+    // テストファイルの特定
     // ==================
-    // Define which test specs should run. The pattern is relative to the directory
+    // どのテストファイルを実行すべきか定義。
+    // The pattern is relative to the directory
     // from which `wdio` was called. Notice that, if you are calling `wdio` from an
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
@@ -12,7 +13,7 @@ exports.config = {
     specs: [
         './test/specs/**/*.js'
     ],
-    // Patterns to exclude.
+    // 除外するパターン
     exclude: [
         // 'path/to/excluded/files'
     ],
@@ -20,9 +21,10 @@ exports.config = {
     // ============
     // Capabilities
     // ============
-    // Define your capabilities here. WebdriverIO can run multiple capabilities at the same
-    // time. Depending on the number of capabilities, WebdriverIO launches several test
-    // sessions. Within your capabilities you can overwrite the spec and exclude options in
+    // capabilitiesの定義
+    // WebdriverIOは並列実行が可能です。
+    // キャパの設定に応じてWebDriverIOはセッションを同時に立ち上げます。
+    // Within your capabilities you can overwrite the spec and exclude options in
     // order to group specific specs to a specific capability.
     //
     // First, you can define how many instances should be started at the same time. Let's
@@ -44,7 +46,14 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'Chrome'
+        browserName: 'Chrome',
+        chromeOptions: {
+            args: [
+                'headless',
+                'disable-gpu',
+                'no-sandbox',
+            ],
+        },
     }],
     //
     // ===================
@@ -57,24 +66,24 @@ exports.config = {
     // e.g. using promises you can set the sync option to false.
     sync: true,
     //
-    // Level of logging verbosity: silent | verbose | command | data | result | error
+    // ロギングレベル: silent | verbose | command | data | result | error
     logLevel: 'silent',
     //
-    // Enables colors for log output.
+    // ログ出力の色を有効にする.
     coloredLogs: true,
     //
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
     bail: 0,
     //
-    // Saves a screenshot to a given path if a command fails.
+    // コマンド失敗時のエラースクリーンショットの保存先.
     screenshotPath: './errorShots/',
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
     baseUrl: 'http://localhost',
     //
-    // Default timeout for all waitFor* commands.
+    // すべての `waitFor*` コマンドのデフォルトタイムアウト.
     waitforTimeout: 1000,
     //
     // Default timeout in milliseconds for request
@@ -106,32 +115,34 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],//
+    services: ['selenium-standalone'],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
+    // テストフレームワークと設定
+    // See the full list at http://mochajs.org/
+    //  mochaOpts: {
+    //    ブラウザ接続の待ち時間（表示がこの時間を超えるとエラーになる）
+    //    timeout: 1200000,
+    //    ユーザインターフェースの設定
+    //    ui: 'bdd'
+    //  },
     framework: 'mocha',
     mochaOpts: {
-        timeout: 1200000
+        timeout: 1200000,
     },
     //
-    // Test reporter for stdout.
-    // The only one supported by default is 'dot'
-    // see also: http://webdriver.io/guide/testrunner/reporters.html
+    // コンソール出力のテストレポーターの設定.
+    // デフォルトでサポートされているのは `dot`
+    // そのほか使用する場合には: http://webdriver.io/guide/testrunner/reporters.html
     reporters: ['spec','junit'],
     reporterOptions:{
       junit: {
         outputDir: './output'
       }
-    },
-    //
-    // Options to be passed to Mocha.
-    // See the full list at http://mochajs.org/
-    mochaOpts: {
-        ui: 'bdd'
     },
     //
     // =====

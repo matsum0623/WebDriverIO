@@ -1,0 +1,11 @@
+{
+  "weburl" : "http://172.17.6.240",
+  "db" : {
+    "user"      : "postgres",
+    "database"  : "SINOPS-R6",
+    "port"      : "5436",
+    "host"      : "172.17.6.240",
+    "password"  : "admin"
+  },
+  "screenShotPath" : "./screenshot"
+}
